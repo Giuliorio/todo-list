@@ -1,5 +1,5 @@
 export function createElement(tag, options = {}) {
-    const { classNames, textContent, attributes = {} } = options;
+    const { classNames = [], textContent, attributes = {} } = options;
     const element = document.createElement(tag);
 
     element.classList.add(...classNames);
