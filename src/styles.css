@@ -43,7 +43,8 @@ html, body {
   padding: 0 .5rem;
 }
 
-.sidebar .item:hover {
+
+.sidebar .item.selected, .sidebar .item:hover {
   background: linear-gradient(
     135deg,
     #a38b4e, /* Darker shade */
