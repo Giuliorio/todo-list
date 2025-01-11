@@ -1,4 +1,4 @@
-import SidebarItem from "./SidebarItem";
+import SidebarItem from "./SidebarItemUi";
 
 const SidebarController = (projects, activeProject) => {
     const sidebar = document.querySelector('#sidebar');
@@ -7,7 +7,8 @@ const SidebarController = (projects, activeProject) => {
         sidebar.innerHTML = '';
 
        projects.forEach(project => {
-            const sidebarItem = SidebarItem(project.getTitle(), handleProjectSelect);
+            const sidebarItem = SidebarItem(project.getTitle());
+            sidebarItem.addEventListener('click', () => handleProjectSelect(sidebarItem, project));
             sidebar.appendChild(sidebarItem);
         });
     }
@@ -19,21 +20,17 @@ const SidebarController = (projects, activeProject) => {
         activeProject = projects[0];
     }
 
-    function handleProjectSelect(sidebarItem, projectTitle) {
-        // Update Sidebar's active item
+    function handleProjectSelect(sidebarItem, project) {
         const sidebarItems = document.querySelectorAll('#sidebar .item');
         sidebarItems.forEach(item => {
             item.classList.remove('selected');
         })
         sidebarItem.classList.add('selected');
 
-        // Render Main
-        const selectedProject = projects.find(project => project.getTitle() === projectTitle);
-        if (selectedProject) {
-            activeProject = selectedProject;
-            // renderMain();
-        }
+        activeProject = project;
+        // renderMain();
     }
+    
 
     return { renderSidebar, selectFirstProject };
 };

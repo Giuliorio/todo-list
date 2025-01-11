@@ -1,12 +1,10 @@
 import { createElement } from "../helpers/domHelper";
 
-function SidebarItem(projectTitle, onClick) {
+function SidebarItem(projectTitle) {
     const sidebarItem = createElement('div', {
         classNames: ['item'],
         textContent: projectTitle
     });
-
-    sidebarItem.addEventListener('click', () => onClick(sidebarItem, projectTitle));
 
     return sidebarItem;
 }
