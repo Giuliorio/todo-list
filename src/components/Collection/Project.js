@@ -2,7 +2,7 @@ import { propertyHandler } from "../../helpers/moduleHelper";
 
 const Project = (initialTitle, options = {}) => {
     const { tasks = [] } = options;
-    let { initialDescription } = options;
+    let { initialDescription = '' } = options;
 
     const [ getTitle, setTitle ] = propertyHandler(initialTitle);
     const [ getDescription, setDescription] = propertyHandler(initialDescription)
