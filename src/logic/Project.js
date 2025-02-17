@@ -51,15 +51,17 @@ class Project {
     }
 
     get items () {
-        return this.#items.map(item => ({ ...item }));
+        return [...this.#items]
     }
 
     addItem (value) {
         this.#items.push(value);
     }
 
-    removeItem (taskId) {
-        this.#items = this.#items.filter(item => task.id !== taskId);
+    removeItem (itemId) {
+        this.#items = this.#items.filter(item => item.id !== itemId);
     }
 
 }
+
+export default Project
