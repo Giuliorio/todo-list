@@ -1,35 +1,61 @@
 class Task {
     #id;
-    #settings;
-    #isDone;
-    static #allowedSettings = ['title', 'description', 'dueDate', 'priority'];
+    #isCompleted = false;
+    #title;
+    #description;
+    #dueDate;
+    #priority;
 
-    constructor(settings = {}, id = crypto.randomUUID()) {
-        this.#settings = settings;
+    constructor(id = crypto.randomUUID(), title = '', description = '', dueDate = null, priority = '') {
         this.#id = id;
-        this.#isDone = false;
-
-        this.update(settings)
-    }
-
-    get isDone () {
-        return this.#isDone;
-    }
-
-    toggleDone () {
-        this.#isDone = !this.#isDone;
+        this.#title = title;
+        this.#description = description;
+        this.#dueDate = dueDate;
+        this.#priority = priority;
     }
 
     get id () {
         return this.#id;
     }
 
-    update (updates) {
-        const filteredUpdates = Object.fromEntries(
-            Object.entries(updates).filter(([update]) => allowedSettings.includes(update))
-        );
+    get isCompleted () {
+        return this.#isCompleted;
+    }
 
-        Object.assign(this, filteredUpdates);
+    toggleCompleted () {
+        this.#isCompleted = !this.#isCompleted;
+    }
+
+    get title () {
+        return this.#title;
+    }
+
+    set title (value) {
+        this.#title = value;
+    }
+
+    get description () {
+        return this.#description;
+    }
+
+    set description (value) {
+        this.#description = value;
+    }
+
+    get dueDate () {
+        return this.#dueDate;
+    }
+
+    set dueDate (value) {
+        this.#dueDate = value;
+    }
+
+    get priority () {
+        return this.#priority;
+    }
+
+    set priority (value) {
+        this.#priority = value;
     }
 
 }
