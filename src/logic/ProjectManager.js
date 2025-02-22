@@ -1,7 +1,7 @@
 class ProjectManager {
     #projects = [];
 
-    constructor (projects) {
+    constructor (projects = []) {
         this.#projects.push(...projects);
     }
 
@@ -24,7 +24,7 @@ class ProjectManager {
         for (let i = 0; i < projects.length; i++) {
             if (projects[i].id === id1) index1 = i;
             if (projects[i].id === id2) index2 = i;
-            if(index !== -1 && index2 !== -1) break;
+            if(index1 !== -1 && index2 !== -1) break;
         }
 
         if (index1 === -1 && index2 === -1) {
@@ -32,7 +32,7 @@ class ProjectManager {
             return;
         }
 
-        [arr[index1], arr[index2]] = [arr[index2], arr[index1]];
+        [projects[index1], projects[index2]] = [projects[index2], projects[index1]];
     }
 
     moveItem (itemId, fromProject, toProject) {
