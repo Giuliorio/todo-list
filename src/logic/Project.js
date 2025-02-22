@@ -60,7 +60,7 @@ class Project {
 
     remove (itemToRemove) {
         const index = this.#items.findIndex(item => item.id === itemToRemove.id);
-        return index ? this.#items.splice(index, 1)[0] : null;
+        return index === -1 ? this.#items.splice(index, 1)[0] : null;
     }
 
 }
