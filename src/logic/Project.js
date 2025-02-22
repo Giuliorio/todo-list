@@ -54,12 +54,13 @@ class Project {
         return [...this.#items]
     }
 
-    addItem (value) {
-        this.#items.push(value);
+    addItem (itemToAdd) {
+        this.#items.push(itemToAdd.id);
     }
 
-    removeItem (itemId) {
-        this.#items = this.#items.filter(item => item.id !== itemId);
+    removeItem (itemToRemove) {
+        const index = this.#items.findIndex(item => item.id === itemToRemove.id);
+        return index ? this.#items.splice(index, 1)[0] : null;
     }
 
 }
