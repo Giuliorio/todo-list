@@ -14,7 +14,7 @@ class ProjectManager {
     }
 
     removeProject (projectToRemove) {
-        this.#projects.filter(project => project != projectToRemove);
+        this.#projects = this.#projects.filter(project => project != projectToRemove);
     }
 
     swapProjects (id1, id2) {
