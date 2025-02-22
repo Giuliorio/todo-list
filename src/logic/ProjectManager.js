@@ -9,30 +9,24 @@ class ProjectManager {
         return [...this.#projects]
     }
 
-    addProject (projectToAdd) {
+    add (projectToAdd) {
         this.#projects.push(projectToAdd);
+        return projectToAdd;
     }
 
-    removeProject (projectToRemove) {
+    remove (projectToRemove) {
         this.#projects = this.#projects.filter(project => project != projectToRemove);
+        return projectToRemove;
     }
 
-    swapProjects (id1, id2) {
-        let projects = this.#projects;
-        let index1 = -1, index2 = -1;
+    reorder (projectToMove, newIndex) {
+        const currentIndex = this.#projects.indexOf(projectToMove);
+        if (currentIndex === -1 || newIndex < 0 || newIndex >= this.#projects.length) return;
 
-        for (let i = 0; i < projects.length; i++) {
-            if (projects[i].id === id1) index1 = i;
-            if (projects[i].id === id2) index2 = i;
-            if(index1 !== -1 && index2 !== -1) break;
-        }
+        this.#projects.splice(currentIndex, 1);
+        this.#projects.splice(newIndex, 0, projectToMove);
 
-        if (index1 === -1 && index2 === -1) {
-            console.error("One or both IDs not found!");
-            return;
-        }
-
-        [projects[index1], projects[index2]] = [projects[index2], projects[index1]];
+        return projectToMove;
     }
 
     moveItem (itemId, fromProject, toProject) {
