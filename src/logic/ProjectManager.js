@@ -30,8 +30,8 @@ class ProjectManager {
     }
 
     moveItem (itemId, fromProject, toProject) {
-        fromProject.removeItem(itemId);
-        toProject.addItem(itemId);
+        fromProject.remove(itemId);
+        toProject.add(itemId);
     }
 }
 

@@ -50,15 +50,15 @@ class Project {
         this.#dueDate = value;
     }
 
-    get items () {
+    get itemIds () {
         return [...this.#items]
     }
 
-    addItem (itemToAdd) {
+    add (itemToAdd) {
         this.#items.push(itemToAdd.id);
     }
 
-    removeItem (itemToRemove) {
+    remove (itemToRemove) {
         const index = this.#items.findIndex(item => item.id === itemToRemove.id);
         return index ? this.#items.splice(index, 1)[0] : null;
     }
