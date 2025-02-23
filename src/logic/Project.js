@@ -3,14 +3,14 @@ class Project {
     #isCompleted = false;
     #title;
     #description;
-    #items = [];
+    #taskIds = [];
     #dueDate;
 
-    constructor(id = crypto.randomUUID(), title = '', description = '', dueDate = null, items = []) {
+    constructor(id = crypto.randomUUID(), title = '', description = '', dueDate = null, tasks = []) {
         this.#id = id;
         this.#title = title;
         this.#description = description;
-        this.#items.push(...items);
+        this.#taskIds.push(...tasks);
         this.#dueDate = dueDate;
     }
 
@@ -50,17 +50,17 @@ class Project {
         this.#dueDate = value;
     }
 
-    get itemIds () {
-        return [...this.#items]
+    get taskIds () {
+        return [...this.#taskIds]
     }
 
-    add (itemToAdd) {
-        this.#items.push(itemToAdd.id);
+    add (taskToAdd) {
+        this.#taskIds.push(taskToAdd.id);
     }
 
-    remove (itemToRemove) {
-        const index = this.#items.findIndex(item => item.id === itemToRemove.id);
-        return index === -1 ? this.#items.splice(index, 1)[0] : null;
+    remove (taskToRemove) {
+        const index = this.#taskIds.findIndex(task => task.id === taskToRemove.id);
+        return index === -1 ? this.#taskIds.splice(index, 1)[0] : null;
     }
 
 }
