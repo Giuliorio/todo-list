@@ -1,3 +1,4 @@
+import Project from "./Project";
 import ProjectManager from "./ProjectManager";
 import TaskManager from "./TaskManager";
 
@@ -13,7 +14,7 @@ class AppManager {
         return this.#projectManager.projects;
     }
 
-    addProject (project) {
+    addProject (project = new Project()) {
         return this.#projectManager.add(project);
     }
 
