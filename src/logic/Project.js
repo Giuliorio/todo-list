@@ -56,6 +56,7 @@ class Project {
 
     add (taskToAdd) {
         this.#taskIds.push(taskToAdd.id);
+        return taskToAdd;
     }
 
     remove (taskToRemove) {
