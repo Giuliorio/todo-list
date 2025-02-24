@@ -1,6 +1,6 @@
 class Task {
     #id;
-    #isCompleted = false;
+    #completion = false;
     #title;
     #description;
     #dueDate;
@@ -18,12 +18,12 @@ class Task {
         return this.#id;
     }
 
-    get isCompleted () {
-        return this.#isCompleted;
+    get completion () {
+        return this.#completion;
     }
 
-    toggleCompleted () {
-        this.#isCompleted = !this.#isCompleted;
+    toggleCompletion () {
+        this.#completion = !this.#completion;
     }
 
     get title () {

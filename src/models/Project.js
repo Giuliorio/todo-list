@@ -1,6 +1,6 @@
 class Project {
     #id;
-    #isCompleted = false;
+    #completion = false;
     #title;
     #description;
     #taskIds = [];
@@ -18,12 +18,12 @@ class Project {
         return this.#id;
     }
 
-    get isCompleted () {
-        return this.#isCompleted;
+    get completion () {
+        return this.#completion;
     }
 
-    toggleCompleted () {
-        this.#isCompleted = !this.#isCompleted;
+    toggleCompletion () {
+        this.#completion = !this.#completion;
     }
 
     get title () {
