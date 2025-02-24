@@ -77,6 +77,12 @@ class AppManager {
         return task;
     }
 
+    toggleCompletion(completable) {
+        completable.toggleCompletion();
+
+        return completable;
+    }
+
 }
 
 export default AppManager;
