@@ -11,32 +11,46 @@ class AppManager {
     }
 
     get projects () {
-        return this.#projectManager.projects;
+        const projects = this.#projectManager.projects;
+
+        return projects;
     }
 
     addProject (project = new Project()) {
-        return this.#projectManager.add(project);
+        this.#projectManager.add(project);
+
+        return project;
     }
 
     removeProject (project) {
-        return this.#projectManager.remove(project);
+        this.#projectManager.remove(project);
+
+        return project;
     }
 
     getTask (id) {
-        return this.#taskManager.getTask(id);
+        const task = this.#taskManager.getTask(id);
+
+        return task;
     }
 
     getTasks (project) {
-        return project.taskIds.map(taskId => this.getTask(taskId));
+        project.taskIds.map(taskId => this.getTask(taskId));
+
+        return project;
     }
 
     addTask (task, location) {
         this.#taskManager.add(task);
-        return location.add(task);
+        location.add(task);
+
+        return task;
     }
 
     removeTask (task, location) {
         location.remove(task);
+        this.#taskManager.remove(task);
+
         return task;
     }
 }
