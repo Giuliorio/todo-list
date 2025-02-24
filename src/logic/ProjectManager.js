@@ -29,10 +29,6 @@ class ProjectManager {
         return projectToMove;
     }
 
-    moveItem (itemId, fromProject, toProject) {
-        fromProject.remove(itemId);
-        toProject.add(itemId);
-    }
 }
 
 export default ProjectManager;
