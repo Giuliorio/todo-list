@@ -34,6 +34,12 @@ class AppManager {
         return task;
     }
 
+    get tasks () {
+        const tasks = this.#taskManager.tasks;
+
+        return tasks;
+    }
+
     getTasks (project) {
         const tasks = project.taskIds.map(taskId => this.getTask(taskId));
 
@@ -60,6 +66,8 @@ class AppManager {
 
         return task;
     }
+
+
 }
 
 export default AppManager;
