@@ -35,9 +35,9 @@ class AppManager {
     }
 
     getTasks (project) {
-        project.taskIds.map(taskId => this.getTask(taskId));
+        const tasks = project.taskIds.map(taskId => this.getTask(taskId));
 
-        return project;
+        return tasks;
     }
 
     addTask (task, location) {
@@ -50,6 +50,13 @@ class AppManager {
     removeTask (task, location) {
         location.remove(task);
         this.#taskManager.remove(task);
+
+        return task;
+    }
+
+    moveTask (task, locationFrom, locationTo) {
+        this.removeTask(task, locationFrom);
+        this.addTask(task, locationTo);
 
         return task;
     }
