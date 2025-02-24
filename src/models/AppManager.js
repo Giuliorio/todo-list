@@ -67,6 +67,15 @@ class AppManager {
         return task;
     }
 
+    editTask (task, settings) {
+        Object.entries(settings).forEach(([key, value]) => {
+            if (task.hasOwnProperty(key)) {
+                task[key] = value;
+            }
+        });
+
+        return task;
+    }
 
 }
 
