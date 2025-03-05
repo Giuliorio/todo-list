@@ -1,0 +1,22 @@
+body {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    height: 100vh;
+
+    color: #ECECEC;
+}
+
+.menu {
+    background-color: #171717;
+    min-height: 100%;
+    padding: 20px 10px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    background-color: #212121;
+    min-height: 100%;
+    padding: 20px 10px;
+}
