@@ -27,7 +27,7 @@ body {
 }
 
 .menu .list > li:hover {
-    background-color: red;
+    background-color: #2F2F2F;
     border-radius: 3px;
 }
 
