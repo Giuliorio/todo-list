@@ -4,6 +4,8 @@ body {
     height: 100vh;
 
     color: #ECECEC;
+
+    font-family: "Noto Sans", sans-serif;
 }
 
 .menu {
