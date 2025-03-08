@@ -59,7 +59,8 @@ body {
     gap: 8px;
 }
 
-.content .list .selected {
+.selected.task,
+.opened.task {
     background-color: #2F2F2F;
     border-radius: 3px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(255, 255, 255, 0.1) inset;
@@ -67,19 +68,42 @@ body {
     margin-bottom: 16px;
 }
 
-.details {
-    display: none;
-}
-
-.content .list .opened {
+.opened.task {
     padding-top: 12px;
     padding-bottom: 12px;
+
+    min-height: 40px;
 
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.content .list .opened .details {
+.details {
+    display: none;
+}
+
+
+.opened .details {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.opened .details::before {
+    content: "";
     display: block;
+    padding: 5px;
+}
+
+.ghost {
+    color: #ECECEC;
+    width: 100%;
+    min-height: 40px;
+    resize: none; /* Disable manual resizing */
+    overflow: hidden; /* Hide scrollbars */
+    border: none;
+    outline: none;
+    font: inherit;
+background: transparent;
 }
