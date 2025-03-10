@@ -24,8 +24,8 @@ body {
     width: 80%;
 }
 
-.list > li {
-    padding: 0px 10px;
+li {
+    padding: 0px 12px;
 }
 
 .menu .list > li:hover {
@@ -45,6 +45,12 @@ body {
 }
 
 .content .title {
+    all: unset;
+    width: 100%;
+    display: block;
+    cursor: default;
+    color: inherit;
+
     font-size: 1.5em;
     font-weight: bold;
 }
@@ -53,10 +59,35 @@ body {
     width: 80%;
 }
 
+.content .list {
+    display: flex;
+    flex-direction: column;
+}
+
 .content .list > li .header {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.task {
+    padding: 4px 12px;
+}
+
+.task .title {
+    all: unset;
+    width: 100%;
+    display: block;
+    cursor: default;
+    color: inherit;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+.opened.task .title {
+    cursor: text;
+    pointer-events: all;
 }
 
 .task input[type="checkbox"] {
@@ -92,14 +123,14 @@ body {
 .opened.task {
     background-color: #2F2F2F;
     border-radius: 3px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(255, 255, 255, 0.1) inset; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(255, 255, 255, 0.1) inset;
 }
 
 .opened.task {
     padding-top: 12px;
     padding-bottom: 12px;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin-top: 12px;
+    margin-bottom: 12px;
 
     min-height: 40px;
 
