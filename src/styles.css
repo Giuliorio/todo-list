@@ -8,7 +8,7 @@ body {
     font-family: "Noto Sans", sans-serif;
 }
 
-.menu {
+.sidebar {
     background-color: #171717;
     min-height: 100%;
     padding: 40px 10px;
@@ -28,7 +28,7 @@ li {
     padding: 0px 12px;
 }
 
-.menu .list > li:hover {
+.sidebar .list > li:hover {
     background-color: #2F2F2F;
     border-radius: 3px;
 }
@@ -36,12 +36,28 @@ li {
 .content {
     background-color: #212121;
     min-height: 100%;
-    padding: 40px 10px;
+    /* padding: 40px 0;
+    padding-bottom: 0; */
 
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+}
+
+.project {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 32px;
+    height: 100%;
+
+    padding-top: 40px;
+
+}
+
+.project .header, 
+.project .list {
+    width: 80%;
 }
 
 .content .title {
@@ -55,13 +71,15 @@ li {
     font-weight: bold;
 }
 
-.content > * {
+/* .content > * {
     width: 80%;
-}
+} */
+
 
 .content .list {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
 }
 
 .content .list > li .header {
@@ -166,4 +184,27 @@ li {
     outline: none;
     font: inherit;
 background: transparent;
+}
+
+.footer {
+    border-top: #171717 1px solid;
+    width: 100%;
+    padding: 4px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.footer > button {
+    background-color: inherit;
+    border: none;
+    padding: 0 3rem;
+    text-align: center;
+
+    color: #ECECEC;
+}
+
+.footer > button:hover {
+    border: #757575 solid 1px;
+    border-radius: 5px;
 }

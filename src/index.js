@@ -1,3 +1,4 @@
+import createProject from './components/Project';
 import createTask from './components/Task';
 import './reset.css';
 import './styles.css';
@@ -8,6 +9,10 @@ let tasks = content.querySelectorAll('.task');
 
 let lastClickTarget = null;
 let timer = null;
+
+
+content.appendChild(createProject());
+
 const button = document.querySelector('.new-task');
 const taskList = document.querySelector('.content .list');
 
