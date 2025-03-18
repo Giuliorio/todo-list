@@ -11,10 +11,15 @@ body {
 .sidebar {
     background-color: #171717;
     min-height: 100%;
-    padding: 40px 10px;
+    padding-top: 40px;
 
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar .list {
+    flex-grow: 1;
 }
 
 .list {
@@ -31,6 +36,18 @@ li {
 .sidebar .list > li:hover {
     background-color: #2F2F2F;
     border-radius: 3px;
+}
+
+.footer {
+    width: 100%;
+    padding: 4px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar .footer {
+    border-top: #212121 solid 1px;
 }
 
 .content {
@@ -188,14 +205,9 @@ background: transparent;
 
 .content .footer {
     border-top: #171717 1px solid;
-    width: 100%;
-    padding: 4px;
-
-    display: flex;
-    justify-content: center;
 }
 
-.content .footer > button {
+.footer > button {
     background-color: inherit;
     border: none;
     padding: 0 3rem;
@@ -204,7 +216,7 @@ background: transparent;
     color: #ECECEC;
 }
 
-.content .footer > button:hover {
-    border: #757575 solid 1px;
+.footer > button:hover {
+    outline: #757575 solid 1px;
     border-radius: 5px;
 }

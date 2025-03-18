@@ -53,6 +53,10 @@ function createFooter () {
         textContent: '+',
     }));
 
+    footer.appendChild(createElement('button', {
+        textContent: 'Move',
+    }));
+
     return footer;
 }
 
