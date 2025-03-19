@@ -1,8 +1,16 @@
 import createProject from './components/Project';
 import createTask from './components/Task';
+import { createElement } from './helpers/createHelement';
 import './reset.css';
 import './styles.css';
 
+function createMenuItem () {
+    const menuItem = createElement('li', {
+        textContent: 'New Project',
+    });
+
+    return menuItem;
+}
 
 const content = document.querySelector('.content');
 let tasks = content.querySelectorAll('.task');
@@ -14,6 +22,8 @@ let timer = null;
 content.appendChild(createProject());
 
 const button = document.querySelector('.new-task');
+const projectList = document.querySelector('.sidebar .list');
+const addProject = document.querySelector('.sidebar button');
 const taskList = document.querySelector('.content .list');
 
 button.addEventListener('click', () => {
@@ -67,3 +77,7 @@ content.addEventListener('dblclick', () => {
         timer = null;
     }
 })
+
+addProject.addEventListener('click', () => {
+    projectList.appendChild(createMenuItem());
+});
