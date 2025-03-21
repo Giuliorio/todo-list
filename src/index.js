@@ -1,30 +1,36 @@
 import createProject from './components/Project';
+import createSidebar from './components/Sidebar';
 import createTask from './components/Task';
 import { createElement } from './helpers/createHelement';
 import './reset.css';
 import './styles.css';
 
-function createMenuItem () {
+function createMenuItem (title, selected) {
     const menuItem = createElement('li', {
-        textContent: 'New Project',
+        classNames: selected ? [selected] : [],
+        textContent: title ? title : 'New Project',
     });
 
     return menuItem;
 }
 
+const body = document.querySelector('body')
 const content = document.querySelector('.content');
 let tasks = content.querySelectorAll('.task');
 
 let lastClickTarget = null;
 let timer = null;
 
-
+body.prepend(createSidebar());
 content.appendChild(createProject());
 
 const button = document.querySelector('.new-task');
 const projectList = document.querySelector('.sidebar .list');
 const addProject = document.querySelector('.sidebar button');
 const taskList = document.querySelector('.content .list');
+const sidebarList = document.querySelector('.sidebar .list');
+
+sidebarList.appendChild(createMenuItem('Inbox', 'selected'));
 
 button.addEventListener('click', () => {
     taskList.appendChild(createTask());
