@@ -1,4 +1,4 @@
-import { createElement } from "../helpers/createHelement";
+import { createElement } from "../helpers/createElement";
 
 function createTask () {
     const task = createElement('li', {classNames: ['task']});

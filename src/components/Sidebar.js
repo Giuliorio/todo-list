@@ -1,4 +1,4 @@
-import { createElement } from "../helpers/createHelement";
+import { createElement } from "../helpers/createElement";
 
 function createSidebar () {
     const sidebar = createElement('div', {

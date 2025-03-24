@@ -1,7 +1,7 @@
 import createProject from './components/Project';
 import createSidebar from './components/Sidebar';
 import createTask from './components/Task';
-import { createElement } from './helpers/createHelement';
+import { createElement } from './helpers/createElement';
 import './reset.css';
 import './styles.css';
 
