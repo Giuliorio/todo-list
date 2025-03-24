@@ -2,17 +2,16 @@ import createProject from "../components/Project";
 import createSidebar from "../components/Sidebar";
 
 class Controller {
+    body = document.querySelector('body');
+    content = document.querySelector('.content');
 
     constructor () {
         this.render()
     }
 
     render () {
-        const body = document.querySelector('body');
-        const content = document.querySelector('.content');
-
-        body.prepend(createSidebar());
-        content.appendChild(createProject());
+        this.body.prepend(createSidebar());
+        this.content.appendChild(createProject());
     }
 
 }
