@@ -1,9 +1,12 @@
-import createProject from './components/Project';
-import createSidebar from './components/Sidebar';
 import createTask from './components/Task';
+import Controller from './controller/Controller';
 import { createElement } from './helpers/createElement';
 import './reset.css';
 import './styles.css';
+
+const controller = new Controller();
+
+
 
 function createMenuItem (title, selected) {
     const menuItem = createElement('li', {
@@ -14,15 +17,11 @@ function createMenuItem (title, selected) {
     return menuItem;
 }
 
-const body = document.querySelector('body')
-const content = document.querySelector('.content');
+
 let tasks = content.querySelectorAll('.task');
 
 let lastClickTarget = null;
 let timer = null;
-
-body.prepend(createSidebar());
-content.appendChild(createProject());
 
 const button = document.querySelector('.new-task');
 const projectList = document.querySelector('.sidebar .list');
