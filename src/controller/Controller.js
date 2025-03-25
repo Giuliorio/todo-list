@@ -2,8 +2,13 @@ import createMenuItem from "../components/MenuItem";
 import createProject from "../components/Project";
 import createSidebar from "../components/Sidebar";
 import createTask from "../components/Task";
+import AppManager from "../models/AppManager";
 
 class Controller {
+    #appManager = new AppManager;
+
+    selectedProject;
+
     body = document.querySelector('body');
     content = document.querySelector('.content');
     tasks;
@@ -16,6 +21,7 @@ class Controller {
     timer = null;   
 
     constructor () {
+        this.selectedProject = this.#appManager.projects[0];
         this.render();
     }
 
@@ -24,8 +30,12 @@ class Controller {
         this.sidebarList = document.querySelector('.sidebar .list');
 
         this.content.appendChild(createProject());
-        this.sidebarList.appendChild(createMenuItem('Inbox', 'selected'));
-        
+
+        this.#appManager.projects.forEach(project => {
+            const isSelected = project.id === this.selectedProject.id;
+            this.sidebarList.appendChild(createMenuItem(project.title, isSelected ? 'selected' : ''));
+        })
+
         this.tasks = this.content.querySelectorAll('.task');
         this.button = document.querySelector('.new-task');
         this.addProject = document.querySelector('.sidebar button');
