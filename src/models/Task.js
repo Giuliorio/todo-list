@@ -6,7 +6,7 @@ class Task {
     #dueDate;
     #priority;
 
-    constructor(id = crypto.randomUUID(), title = '', description = '', dueDate = null, priority = '') {
+    constructor(title = '', description = '', dueDate = null, priority = '', id = crypto.randomUUID()) {
         this.#id = id;
         this.#title = title;
         this.#description = description;

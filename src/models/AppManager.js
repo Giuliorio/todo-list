@@ -7,7 +7,8 @@ class AppManager {
     #taskManager = new TaskManager;
 
     constructor () {
-
+        const index = this.addProject();
+        index.title = 'Index';
     }
 
     get projects () {
