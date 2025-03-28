@@ -47,6 +47,7 @@ class Controller {
     }
 
     handleProjectCreation () {
+        this.updateTitle();
         document.querySelectorAll('.sidebar li').forEach(menuItem => menuItem.classList.remove('selected'));
         this.selectedProject = this.#appManager.addProject();
         const newMenuItem = this.sidebarList.appendChild(createMenuItem(this.selectedProject.title, this.selectedProject.id, 'selected'));
