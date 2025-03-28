@@ -5,17 +5,20 @@ class ContentController {
     #content = document.querySelector('.content');
     
     #project;
+    #title;
 
     tasks;
     taskList;
     button;
 
     #addTask = () => {};
+    #updateTitle = () => {};
 
-    constructor (project, addTask = () => {}) {
+    constructor (project, addTask = () => {}, updateTitle = () => {}) {
         this.#project = project;
 
         this.#addTask = addTask;
+        this.#updateTitle = updateTitle;
 
         this.render();
         this.addEventListeners();
@@ -23,7 +26,7 @@ class ContentController {
 
     render () {
         this.#content.replaceChildren();
-        this.#content.appendChild(createProject());
+        this.#content.appendChild(createProject(this.#project.title || '', this.#project.description || ''));
 
         this.tasks = this.#content.querySelectorAll('.task');
         this.taskList = this.#content.querySelector('.list');
@@ -34,7 +37,9 @@ class ContentController {
         this.#content.addEventListener('click', (event) => this.handleClick(event));
         this.#content.addEventListener('dblclick', () => this.handleDoubleClick());
         this.button.addEventListener('click', () => this.handleTaskCreation());
-        this.#content.querySelector('.title').addEventListener('input', (event) => this.#project.title = event.target.value);
+        this.#title = this.#content.querySelector('.title')
+        this.#title.addEventListener('input', (event) => this.#project.title = event.target.value);
+        this.#title.addEventListener('blur', () => this.#updateTitle());
         this.#content.querySelector('.description').addEventListener('input', (event) => this.#project.description = event.target.value);
     }
 
@@ -82,6 +87,7 @@ class ContentController {
         this.tasks = document.querySelectorAll('.task');
         this.#addTask();
     }
+
  }
 
 export default ContentController;

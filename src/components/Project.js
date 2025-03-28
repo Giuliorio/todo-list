@@ -1,18 +1,18 @@
 import { createElement } from "../helpers/createElement";
 
-function createProject () {
+function createProject (title, description) {
     const project = createElement('div', {
         classNames: ['project']
     });
 
-    project.appendChild(createHeader());
+    project.appendChild(createHeader(title, description));
     project.appendChild(createBody());
     project.appendChild(createFooter());
 
     return project;
 }
 
-function createHeader () {
+function createHeader (title, description) {
     const header = createElement('div', {
         classNames: ['header']
     });
@@ -22,14 +22,16 @@ function createHeader () {
         attributes: {
             type: 'text',
             placeholder: 'New Project',
-        }
+            value: title,
+        },
     }));
 
     header.appendChild(createElement('textarea', {
+        textContent: description,
         classNames: ['ghost', 'description'],
         attributes: {
             placeholder: 'Description',
-        }
+        },
     }));
 
     return header;

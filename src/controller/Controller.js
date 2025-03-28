@@ -30,11 +30,13 @@ class Controller {
 
         this.#appManager.projects.forEach(project => {
             const isSelected = project.id === this.selectedProject.id;
-            this.sidebarList.appendChild(createMenuItem(project.title, isSelected ? 'selected' : ''));
+            const menuItem = createMenuItem(project.title, project.id, isSelected ? 'selected' : '');
+            menuItem.addEventListener('click',  (event) => this.handleMenuItemSelect(event));
+            this.sidebarList.appendChild(menuItem);
         })
 
         this.addProject.addEventListener('click', () => this.handleProjectCreation());
-        new ContentController(this.selectedProject, () => this.addTask());
+        new ContentController(this.selectedProject, () => this.addTask(), () => this.updateTitle());
     }
 
     handleTextAreaResize (event) {
@@ -47,14 +49,32 @@ class Controller {
     handleProjectCreation () {
         document.querySelectorAll('.sidebar li').forEach(menuItem => menuItem.classList.remove('selected'));
         this.selectedProject = this.#appManager.addProject();
-        this.sidebarList.appendChild(createMenuItem(this.selectedProject.title, 'selected'));
+        const newMenuItem = this.sidebarList.appendChild(createMenuItem(this.selectedProject.title, this.selectedProject.id, 'selected'));
         new ContentController(this.selectedProject, () => this.addTask());
+        newMenuItem.addEventListener('click',  (event) => this.handleMenuItemSelect(event));
+    }
+
+    handleMenuItemSelect (event) {
+        const menuItem = event.target;
+        const id = menuItem.dataset.id;
+
+        if (menuItem.classList.contains('selected')) return;
+        this.updateTitle()
+
+        document.querySelectorAll('.sidebar li').forEach(item => item.classList.remove('selected'));
+        menuItem.classList.add('selected');
+        this.selectedProject = this.#appManager.projects.find(project => project.id === id);
+        new ContentController(this.selectedProject, () => this.addTask(), () => this.updateTitle());
     }
 
     addTask () {
         this.#appManager.addTask(this.selectedProject);
         console.log(this.#appManager.tasks);
         console.log(this.selectedProject)
+    }
+
+    updateTitle () {
+        document.querySelector(`.sidebar .selected`).textContent = this.selectedProject.title;
     }
 }
 
