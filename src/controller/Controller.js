@@ -34,7 +34,7 @@ class Controller {
         })
 
         this.addProject.addEventListener('click', () => this.handleProjectCreation());
-        new ContentController(this.selectedProject, () => this.addTask(), () => this.#appManager.update);
+        new ContentController(this.selectedProject, () => this.addTask());
     }
 
     handleTextAreaResize (event) {
@@ -45,7 +45,10 @@ class Controller {
     }
 
     handleProjectCreation () {
-        this.sidebarList.appendChild(createMenuItem())
+        document.querySelectorAll('.sidebar li').forEach(menuItem => menuItem.classList.remove('selected'));
+        this.selectedProject = this.#appManager.addProject();
+        this.sidebarList.appendChild(createMenuItem(this.selectedProject.title, 'selected'));
+        new ContentController(this.selectedProject, () => this.addTask());
     }
 
     addTask () {
