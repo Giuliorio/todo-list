@@ -1,9 +1,9 @@
 import { createElement } from "../helpers/createElement";
 
-function createMenuItem (title, id, selected) {
+function createMenuItem (title, id, selected, titleDefault) {
     const menuItem = createElement('li', {
         classNames: selected ? [selected] : [],
-        textContent: title ? title : 'New Project',
+        textContent: title || titleDefault,
         attributes: {
             'data-id': id,
         },

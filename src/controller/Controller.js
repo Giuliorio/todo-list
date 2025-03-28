@@ -3,6 +3,8 @@ import createSidebar from "../components/Sidebar";
 import AppManager from "../models/AppManager";
 import ContentController from "./contentController";
 
+const DEFAULT_PROJECT_TITLE = 'New Project';
+
 class Controller {
     #appManager = new AppManager;
 
@@ -30,7 +32,7 @@ class Controller {
 
         this.#appManager.projects.forEach(project => {
             const isSelected = project.id === this.selectedProject.id;
-            const menuItem = createMenuItem(project.title, project.id, isSelected ? 'selected' : '');
+            const menuItem = createMenuItem(project.title, project.id, isSelected ? 'selected' : '', DEFAULT_PROJECT_TITLE);
             menuItem.addEventListener('click',  (event) => this.handleMenuItemSelect(event));
             this.sidebarList.appendChild(menuItem);
         })
@@ -48,9 +50,9 @@ class Controller {
 
     handleProjectCreation () {
         this.updateTitle();
-        document.querySelectorAll('.sidebar li').forEach(menuItem => menuItem.classList.remove('selected'));
+        document.querySelector('.sidebar .selected').classList.remove('selected');
         this.selectedProject = this.#appManager.addProject();
-        const newMenuItem = this.sidebarList.appendChild(createMenuItem(this.selectedProject.title, this.selectedProject.id, 'selected'));
+        const newMenuItem = this.sidebarList.appendChild(createMenuItem(this.selectedProject.title, this.selectedProject.id, 'selected', DEFAULT_PROJECT_TITLE));
         new ContentController(this.selectedProject, () => this.addTask());
         newMenuItem.addEventListener('click',  (event) => this.handleMenuItemSelect(event));
     }
@@ -75,7 +77,7 @@ class Controller {
     }
 
     updateTitle () {
-        document.querySelector(`.sidebar .selected`).textContent = this.selectedProject.title;
+        document.querySelector(`.sidebar .selected`).textContent = this.selectedProject.title || DEFAULT_PROJECT_TITLE;
     }
 }
 

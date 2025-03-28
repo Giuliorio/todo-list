@@ -37,6 +37,17 @@ body {
 
 .sidebar li {
     padding: 0px 12px;
+    position: relative;
+}
+
+
+.sidebar li:empty::after {
+    content: '\00a0'; /* Non-breaking space */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .sidebar li.selected {
