@@ -2,27 +2,40 @@ import createProject from "../components/Project";
 import createTask from "../components/Task";
 
 class ContentController {
-    content = document.querySelector('.content');
+    #content = document.querySelector('.content');
+    
+    #project;
 
     tasks;
     taskList;
     button;
 
-    constructor () {
+    #addTask = () => {};
 
+    constructor (project, addTask = () => {}) {
+        this.#project = project;
+
+        this.#addTask = addTask;
+
+        this.render();
+        this.addEventListeners();
     }
 
-    render (project) {
-        this.content.replaceChildren();
-        this.content.appendChild(createProject());
+    render () {
+        this.#content.replaceChildren();
+        this.#content.appendChild(createProject());
 
-        this.tasks = document.querySelectorAll('.task');
-        this.taskList = document.querySelector('.content .list');
-        this.button = document.querySelector('.content .new-task');
+        this.tasks = this.#content.querySelectorAll('.task');
+        this.taskList = this.#content.querySelector('.list');
+        this.button = this.#content.querySelector('.new-task');    
+    }
 
-        this.content.addEventListener('click', (event) => this.handleClick(event));
-        this.content.addEventListener('dblclick', () => this.handleDoubleClick());
+    addEventListeners () {
+        this.#content.addEventListener('click', (event) => this.handleClick(event));
+        this.#content.addEventListener('dblclick', () => this.handleDoubleClick());
         this.button.addEventListener('click', () => this.handleTaskCreation());
+        this.#content.querySelector('.title').addEventListener('input', (event) => this.#project.title = event.target.value);
+        this.#content.querySelector('.description').addEventListener('input', (event) => this.#project.description = event.target.value);
     }
 
     handleClick (event) {
@@ -67,7 +80,8 @@ class ContentController {
     handleTaskCreation () {
         this.taskList.appendChild(createTask());
         this.tasks = document.querySelectorAll('.task');
+        this.#addTask();
     }
-}
+ }
 
 export default ContentController;

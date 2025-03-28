@@ -5,7 +5,6 @@ import ContentController from "./contentController";
 
 class Controller {
     #appManager = new AppManager;
-    #contentController = new ContentController
 
     selectedProject;
 
@@ -35,7 +34,7 @@ class Controller {
         })
 
         this.addProject.addEventListener('click', () => this.handleProjectCreation());
-        this.#contentController.render()
+        new ContentController(this.selectedProject, () => this.addTask(), () => this.#appManager.update);
     }
 
     handleTextAreaResize (event) {
@@ -47,6 +46,12 @@ class Controller {
 
     handleProjectCreation () {
         this.sidebarList.appendChild(createMenuItem())
+    }
+
+    addTask () {
+        this.#appManager.addTask(this.selectedProject);
+        console.log(this.#appManager.tasks);
+        console.log(this.selectedProject)
     }
 }
 

@@ -26,7 +26,7 @@ function createHeader () {
     }));
 
     header.appendChild(createElement('textarea', {
-        classNames: ['ghost'],
+        classNames: ['ghost', 'description'],
         attributes: {
             placeholder: 'Description',
         }
