@@ -38,7 +38,7 @@ class Controller {
         })
 
         this.addProject.addEventListener('click', () => this.handleProjectCreation());
-        new ContentController(this.selectedProject, () => this.addTask(), () => this.updateTitle());
+        new ContentController(this.selectedProject, () => this.addTask(), () => this.updateTitle(), () => this.getTasks());
     }
 
     handleTextAreaResize (event) {
@@ -53,7 +53,7 @@ class Controller {
         document.querySelector('.sidebar .selected').classList.remove('selected');
         this.selectedProject = this.#appManager.addProject();
         const newMenuItem = this.sidebarList.appendChild(createMenuItem(this.selectedProject.title, this.selectedProject.id, 'selected', DEFAULT_PROJECT_TITLE));
-        new ContentController(this.selectedProject, () => this.addTask());
+        new ContentController(this.selectedProject, () => this.addTask(), () => this.updateTitle(), () => this.getTasks())
         newMenuItem.addEventListener('click',  (event) => this.handleMenuItemSelect(event));
     }
 
@@ -67,17 +67,19 @@ class Controller {
         document.querySelectorAll('.sidebar li').forEach(item => item.classList.remove('selected'));
         menuItem.classList.add('selected');
         this.selectedProject = this.#appManager.projects.find(project => project.id === id);
-        new ContentController(this.selectedProject, () => this.addTask(), () => this.updateTitle());
+        new ContentController(this.selectedProject, () => this.addTask(), () => this.updateTitle(), () => this.getTasks());
     }
 
-    addTask () {
-        this.#appManager.addTask(this.selectedProject);
-        console.log(this.#appManager.tasks);
-        console.log(this.selectedProject)
+    addTask (task) {
+        return this.#appManager.addTask(this.selectedProject, task);
     }
 
     updateTitle () {
         document.querySelector(`.sidebar .selected`).textContent = this.selectedProject.title || DEFAULT_PROJECT_TITLE;
+    }
+
+    getTasks () {
+        return this.#appManager.getTasks(this.selectedProject);
     }
 }
 

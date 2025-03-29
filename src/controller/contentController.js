@@ -1,5 +1,6 @@
 import createProject from "../components/Project";
 import createTask from "../components/Task";
+import TaskController from "./taskController";
 
 class ContentController {
     #content = document.querySelector('.content');
@@ -13,12 +14,14 @@ class ContentController {
 
     #addTask = () => {};
     #updateTitle = () => {};
+    #getTasks = () => {};
 
-    constructor (project, addTask = () => {}, updateTitle = () => {}) {
+    constructor (project, addTask = () => {}, updateTitle = () => {}, getTasks = () => {}) {
         this.#project = project;
 
         this.#addTask = addTask;
         this.#updateTitle = updateTitle;
+        this.#getTasks = getTasks;
 
         this.render();
         this.addEventListeners();
@@ -27,6 +30,7 @@ class ContentController {
     render () {
         this.#content.replaceChildren();
         this.#content.appendChild(createProject(this.#project.title || '', this.#project.description || ''));
+        this.#getTasks().forEach(task => this.loadTask(task));
 
         this.tasks = this.#content.querySelectorAll('.task');
         this.taskList = this.#content.querySelector('.list');
@@ -83,9 +87,13 @@ class ContentController {
     }
 
     handleTaskCreation () {
-        this.taskList.appendChild(createTask());
+        const newTask = this.#addTask();
+        this.loadTask(newTask);
+    }
+
+    loadTask (task) {
+        new TaskController(task);
         this.tasks = document.querySelectorAll('.task');
-        this.#addTask();
     }
 
  }

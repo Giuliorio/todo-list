@@ -1,14 +1,14 @@
 import { createElement } from "../helpers/createElement";
 
-function createTask () {
+function createTask (title, description, completion) {
     const task = createElement('li', {classNames: ['task']});
-    task.appendChild(createHeader());
-    task.appendChild(createBody())
+    task.appendChild(createHeader(title, completion));
+    task.appendChild(createBody(description))
     
     return task;
 }
 
-function createHeader () {
+function createHeader (title, completion) {
     const header = createElement('div', {
         classNames: ['header'],
     });
@@ -16,6 +16,7 @@ function createHeader () {
     header.appendChild(createElement('input', {
         attributes: {
             type: 'checkbox',
+            value: completion,
         }
     }));
 
@@ -24,20 +25,21 @@ function createHeader () {
         attributes: {
             type: 'text',
             placeholder: 'New To-Do',
-            // value = '',
+            value: title,
         }
     }));
 
     return header;
 }
 
-function createBody () {
+function createBody (description) {
     const body = createElement('div', {
         classNames: ['details'],
     });
 
     body.appendChild(createElement('textarea', {
-        classNames: ['ghost'],
+        textContent: description,
+        classNames: ['ghost', 'description'],
         attributes: {
             placeholder: 'Description',
         }
