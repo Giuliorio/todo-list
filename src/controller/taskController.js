@@ -13,6 +13,7 @@ class TaskController {
         this.#taskData = taskData;
 
         this.#render();
+        this.#addEventListeners();
     }
 
     #render () {
@@ -22,6 +23,11 @@ class TaskController {
         this.#title = this.#task.querySelector('.title');
         this.#description = this.#task.querySelector('.description');
         this.#checkbox = this.#task.querySelector('input[type="checkbox"]');
+    }
+
+    #addEventListeners () {
+        this.#title.addEventListener('input', (event) => this.#taskData.title = event.target.value);
+        this.#description.addEventListener('input', (event) => this.#taskData.description = event.target.value);
     }
 }
 
