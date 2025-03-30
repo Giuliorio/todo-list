@@ -21,11 +21,10 @@ class Controller {
     constructor () {
         this.selectedProject = this.#appManager.projects[0];
         this.render();
+        this.addEventListeners();
     }
 
     render () {
-        document.addEventListener('input', (event) => this.handleTextAreaResize(event));
-
         this.body.prepend(createSidebar());
         this.sidebarList = document.querySelector('.sidebar .list');
         this.addProject = document.querySelector('.sidebar .new-project');
@@ -37,8 +36,13 @@ class Controller {
             this.sidebarList.appendChild(menuItem);
         })
 
-        this.addProject.addEventListener('click', () => this.handleProjectCreation());
+        
         this.createProject();
+    }
+
+    addEventListeners () {
+        document.addEventListener('input', (event) => this.handleTextAreaResize(event));
+        this.addProject.addEventListener('click', () => this.handleProjectCreation());
     }
 
     handleTextAreaResize (event) {
@@ -83,7 +87,12 @@ class Controller {
     }
 
     createProject () {
-        new ContentController(this.selectedProject, () => this.addTask(), () => this.updateTitle(), () => this.getTasks());
+        new ContentController(
+            this.selectedProject, 
+            () => this.addTask(), 
+            () => this.updateTitle(), 
+            () => this.getTasks()
+        );
     }
 }
 
