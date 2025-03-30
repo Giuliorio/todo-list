@@ -1,7 +1,6 @@
-import createMenuItem from "../components/MenuItem";
-import createSidebar from "../components/Sidebar";
 import AppManager from "../models/AppManager";
 import ContentController from "./contentController";
+import SidebarController from "./SidebarController";
 
 const DEFAULT_PROJECT_TITLE = 'New Project';
 
@@ -25,24 +24,18 @@ class Controller {
     }
 
     render () {
-        this.body.prepend(createSidebar());
-        this.sidebarList = document.querySelector('.sidebar .list');
-        this.addProject = document.querySelector('.sidebar .new-project');
-
-        this.#appManager.projects.forEach(project => {
-            const isSelected = project.id === this.selectedProject.id;
-            const menuItem = createMenuItem(project.title, project.id, isSelected ? 'selected' : '', DEFAULT_PROJECT_TITLE);
-            menuItem.addEventListener('click',  (event) => this.handleMenuItemSelect(event));
-            this.sidebarList.appendChild(menuItem);
-        })
-
-        
+        new SidebarController(
+            this.#appManager.projects, 
+            DEFAULT_PROJECT_TITLE,
+            (id) => this.isSelected(id),
+            (event) => this.handleMenuItemSelect(event),
+            (func) => this.handleProjectCreation(func),
+        );
         this.createProject();
     }
 
     addEventListeners () {
         document.addEventListener('input', (event) => this.handleTextAreaResize(event));
-        this.addProject.addEventListener('click', () => this.handleProjectCreation());
     }
 
     handleTextAreaResize (event) {
@@ -52,13 +45,12 @@ class Controller {
         }
     }
 
-    handleProjectCreation () {
+    handleProjectCreation (createMenuItem) {
         this.updateTitle();
         document.querySelector('.sidebar .selected').classList.remove('selected');
         this.selectedProject = this.#appManager.addProject();
-        const newMenuItem = this.sidebarList.appendChild(createMenuItem(this.selectedProject.title, this.selectedProject.id, 'selected', DEFAULT_PROJECT_TITLE));
         this.createProject()
-        newMenuItem.addEventListener('click',  (event) => this.handleMenuItemSelect(event));
+        return createMenuItem(this.selectedProject.title, this.selectedProject.id, 'selected', DEFAULT_PROJECT_TITLE);
     }
 
     handleMenuItemSelect (event) {
@@ -72,6 +64,10 @@ class Controller {
         menuItem.classList.add('selected');
         this.selectedProject = this.#appManager.projects.find(project => project.id === id);
         this.createProject();
+    }
+
+    isSelected (id) {
+        return id === this.selectedProject.id;
     }
 
     addTask (task) {
