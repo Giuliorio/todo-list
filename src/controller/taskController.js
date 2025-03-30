@@ -17,7 +17,7 @@ class TaskController {
     }
 
     #render () {
-        this.#task = createTask(this.#taskData.title, this.#taskData.description);
+        this.#task = createTask(this.#taskData.title, this.#taskData.description, this.#taskData.completion);
         this.#parentElement.appendChild(this.#task);
 
         this.#title = this.#task.querySelector('.title');
@@ -28,6 +28,7 @@ class TaskController {
     #addEventListeners () {
         this.#title.addEventListener('input', (event) => this.#taskData.title = event.target.value);
         this.#description.addEventListener('input', (event) => this.#taskData.description = event.target.value);
+        this.#checkbox.addEventListener('input', () => this.#taskData.toggleCompletion());
     }
 }
 

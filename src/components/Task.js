@@ -16,7 +16,7 @@ function createHeader (title, completion) {
     header.appendChild(createElement('input', {
         attributes: {
             type: 'checkbox',
-            value: completion,
+            ...(completion && {checked: 'checked'}),
         }
     }));
 
