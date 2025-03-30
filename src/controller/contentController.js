@@ -1,5 +1,6 @@
 import createProject from "../components/Project";
 import createTask from "../components/Task";
+import { createElement } from "../helpers/createElement";
 import TaskController from "./taskController";
 
 class ContentController {
@@ -8,8 +9,7 @@ class ContentController {
     #project;
     #title;
 
-    tasks;
-    taskList;
+    tasks = [];
     button;
 
     #addTask = () => {};
@@ -28,13 +28,14 @@ class ContentController {
     }
 
     render () {
-        this.#content.replaceChildren();
+        const newContent = this.#content.cloneNode(false)
+        this.#content.replaceWith(newContent);
+        this.#content = newContent;
+
         this.#content.appendChild(createProject(this.#project.title || '', this.#project.description || ''));
         this.#getTasks().forEach(task => this.loadTask(task));
 
-        this.tasks = this.#content.querySelectorAll('.task');
-        this.taskList = this.#content.querySelector('.list');
-        this.button = this.#content.querySelector('.new-task');    
+        this.button = this.#content.querySelector('.new-task');   
     }
 
     addEventListeners () {
