@@ -38,7 +38,7 @@ class Controller {
         })
 
         this.addProject.addEventListener('click', () => this.handleProjectCreation());
-        new ContentController(this.selectedProject, () => this.addTask(), () => this.updateTitle(), () => this.getTasks());
+        this.createProject();
     }
 
     handleTextAreaResize (event) {
@@ -53,7 +53,7 @@ class Controller {
         document.querySelector('.sidebar .selected').classList.remove('selected');
         this.selectedProject = this.#appManager.addProject();
         const newMenuItem = this.sidebarList.appendChild(createMenuItem(this.selectedProject.title, this.selectedProject.id, 'selected', DEFAULT_PROJECT_TITLE));
-        new ContentController(this.selectedProject, () => this.addTask(), () => this.updateTitle(), () => this.getTasks())
+        this.createProject()
         newMenuItem.addEventListener('click',  (event) => this.handleMenuItemSelect(event));
     }
 
@@ -67,7 +67,7 @@ class Controller {
         document.querySelectorAll('.sidebar li').forEach(item => item.classList.remove('selected'));
         menuItem.classList.add('selected');
         this.selectedProject = this.#appManager.projects.find(project => project.id === id);
-        new ContentController(this.selectedProject, () => this.addTask(), () => this.updateTitle(), () => this.getTasks());
+        this.createProject();
     }
 
     addTask (task) {
@@ -80,6 +80,10 @@ class Controller {
 
     getTasks () {
         return this.#appManager.getTasks(this.selectedProject);
+    }
+
+    createProject () {
+        new ContentController(this.selectedProject, () => this.addTask(), () => this.updateTitle(), () => this.getTasks());
     }
 }
 
