@@ -217,7 +217,7 @@ body {
     border: none;
     outline: none;
     font: inherit;
-background: transparent;
+    background: transparent;
 }
 
 .content .footer {
@@ -236,6 +236,14 @@ background: transparent;
 .footer > button:hover {
     outline: #757575 solid 1px;
     border-radius: 5px;
+}
+
+.footer > button:disabled {
+    color: #777;
+}
+
+.footer > button:disabled:hover {
+    outline: none;
 }
 
 .dropdown {
