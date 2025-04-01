@@ -14,6 +14,7 @@ class ContentController {
     tasks = [];
     #newTaskButton;
     #moveTaskButton;
+    #deleteTaskButton;
     #moveDropdown;
 
     #addTask = () => {};
@@ -46,6 +47,7 @@ class ContentController {
         
         this.#newTaskButton = this.#content.querySelector('.new-task');  
         this.#moveTaskButton = this.#content.querySelector('.move');
+        this.#deleteTaskButton = this.#content.querySelector('.delete');
 
         this.#moveDropdown = new DropdownController(
             this.#projects,
@@ -74,6 +76,7 @@ class ContentController {
                 task.classList.remove('selected', 'opened');
             })
             this.#moveTaskButton.disabled = true;
+            this.#deleteTaskButton.disabled = true;
             return;
         }
     
@@ -91,6 +94,7 @@ class ContentController {
         targetTask.classList.add('selected');
 
         this.#moveTaskButton.disabled = false;
+        this.#deleteTaskButton.disabled = false;
     }
 
     handleDoubleClick () {
