@@ -1,7 +1,7 @@
 import createDropdown from "../components/Dropdown";
 
 class DropdownController {
-    #body = document.querySelector('body');
+    #content = document.querySelector('.content');
     #dropdown = null;
 
     #button;
@@ -17,11 +17,11 @@ class DropdownController {
     }
 
     addEventListeners () {
-        this.#body.addEventListener('click', (event) => this.#closeDropdown(event));
+        this.#content.addEventListener('click', (event) => this.#closeDropdown(event));
     }
 
     toggleDropdown () {
-        this.#body.appendChild(this.#dropdown); 
+        this.#content.appendChild(this.#dropdown); 
 
         const rect = this.#button.getBoundingClientRect();
         this.#dropdown.style.bottom = `${window.innerHeight - rect.top}px`;
