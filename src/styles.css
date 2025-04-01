@@ -237,3 +237,42 @@ background: transparent;
     outline: #757575 solid 1px;
     border-radius: 5px;
 }
+
+.dropdown {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    min-width: 150px;
+    display: none;
+    z-index: 1000;
+    bottom: 100%;
+    transform: translateY(-0.25rem);
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.dropdown.show {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+    max-height: none;
+}
+
+.dropdown .option {
+    border: none;
+    background-color: inherit;
+    font-size: .9rem;
+
+    width: 16rem;
+
+    cursor: pointer;
+
+    position: relative;
+}
+
+.dropdown .option:hover {
+    background: #f0f0f0;
+}

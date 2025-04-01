@@ -57,6 +57,7 @@ function createFooter () {
 
     footer.appendChild(createElement('button', {
         textContent: 'Move',
+        classNames: ['move'],
     }));
 
     return footer;

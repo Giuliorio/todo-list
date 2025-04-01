@@ -1,6 +1,8 @@
+import createMoveDropdown from "../components/Dropdown";
 import createProject from "../components/Project";
 import createTask from "../components/Task";
 import { createElement } from "../helpers/createElement";
+import DropdownController from "./DropdownController";
 import TaskController from "./taskController";
 
 class ContentController {
@@ -10,18 +12,23 @@ class ContentController {
     #title;
 
     tasks = [];
-    button;
+    #newTaskButton;
+    #moveTaskButton;
+    #moveDropdown;
 
     #addTask = () => {};
     #updateTitle = () => {};
     #getTasks = () => {};
 
-    constructor (project, addTask = () => {}, updateTitle = () => {}, getTasks = () => {}) {
+    #projects;
+
+    constructor (project, addTask = () => {}, updateTitle = () => {}, getTasks = () => {}, projects) {
         this.#project = project;
 
         this.#addTask = addTask;
         this.#updateTitle = updateTitle;
         this.#getTasks = getTasks;
+        this.#projects = projects;
 
         this.render();
         this.addEventListeners();
@@ -34,14 +41,18 @@ class ContentController {
 
         this.#content.appendChild(createProject(this.#project.title || '', this.#project.description || ''));
         this.#getTasks().forEach(task => this.loadTask(task));
+        
+        this.#newTaskButton = this.#content.querySelector('.new-task');  
+        this.#moveTaskButton = this.#content.querySelector('.move');
 
-        this.button = this.#content.querySelector('.new-task');   
+        this.#moveDropdown = new DropdownController(this.#projects, this.#moveTaskButton);
     }
 
     addEventListeners () {
         this.#content.addEventListener('click', (event) => this.handleClick(event));
         this.#content.addEventListener('dblclick', () => this.handleDoubleClick());
-        this.button.addEventListener('click', () => this.handleTaskCreation());
+        this.#newTaskButton.addEventListener('click', () => this.handleTaskCreation());
+        this.#moveTaskButton.addEventListener('click', () => this.#moveDropdown.toggleDropdown());
         this.#title = this.#content.querySelector('.title')
         this.#title.addEventListener('input', (event) => this.#project.title = event.target.value);
         this.#title.addEventListener('blur', () => this.#updateTitle());

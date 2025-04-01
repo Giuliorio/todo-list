@@ -82,12 +82,20 @@ class Controller {
         return this.#appManager.getTasks(this.selectedProject);
     }
 
+    getProjects () {
+        return this.#appManager.projects.map(project => ({
+            title: project.title || DEFAULT_PROJECT_TITLE,
+            id: project.id
+        }));
+    }
+
     createProject () {
         new ContentController(
             this.selectedProject, 
             () => this.addTask(), 
             () => this.updateTitle(), 
-            () => this.getTasks()
+            () => this.getTasks(),
+            this.getProjects()
         );
     }
 }
