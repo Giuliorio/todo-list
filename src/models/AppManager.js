@@ -21,7 +21,6 @@ class AppManager {
     }
 
     getProject (id) {
-        console.log(id)
         const project = this.#projectManager.getProject(id);
 
         return project;
@@ -73,7 +72,7 @@ class AppManager {
 
     moveTask (task, locationFrom, locationTo) {
         this.removeTask(task, locationFrom);
-        this.addTask(task, locationTo);
+        this.addTask(locationTo, task);
 
         return task;
     }

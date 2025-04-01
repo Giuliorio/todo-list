@@ -5,19 +5,30 @@ class DropdownController {
     #dropdown = null;
 
     #button;
-
     #projects;
 
-    constructor (projects, button) {
+    #moveTask = () => {};
+
+    constructor (projects, button, moveTask = () => {}) {
         this.#projects = projects;
         this.#dropdown = createDropdown(this.#projects);
         this.#button = button;
+
+        this.#moveTask = moveTask;
 
         this.addEventListeners();
     }
 
     addEventListeners () {
         this.#content.addEventListener('click', (event) => this.#closeDropdown(event));
+        this.#content.addEventListener('click', (event) => {
+                if (event.target.classList.contains('option')) {
+                    this.#moveTask(
+                        this.#content.querySelector('.selected').getAttribute('data-id'),
+                        event.target.closest('.option').getAttribute('data-id')
+                    );
+                }
+            });
     }
 
     toggleDropdown () {
