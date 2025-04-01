@@ -63,6 +63,14 @@ function createFooter () {
         }
     }));
 
+    footer.appendChild(createElement('button', {
+        textContent: 'Delete',
+        classNames: ['delete'],
+        attributes: {
+            disabled: true,
+        }
+    }));
+
     return footer;
 }
 
