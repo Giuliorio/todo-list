@@ -62,10 +62,13 @@ class ContentController {
     handleClick (event) {
         const targetTask = event.target.closest('.task');
 
+        if (event.target.closest('.footer')) return;
+
         if (!targetTask) {
             this.tasks.forEach(task => {
                 task.classList.remove('selected', 'opened');
             })
+            this.#moveTaskButton.disabled = true;
             return;
         }
     
@@ -81,6 +84,8 @@ class ContentController {
             task.classList.remove('selected', 'opened');
         })
         targetTask.classList.add('selected');
+
+        this.#moveTaskButton.disabled = false;
     }
 
     handleDoubleClick () {
