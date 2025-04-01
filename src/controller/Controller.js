@@ -88,6 +88,12 @@ class Controller {
         this.#appManager.moveTask(task, this.selectedProject, locationTo);
     }
 
+    deleteTask (taskId, locationId) {
+        const task = this.#appManager.getTask(taskId);
+        const location = this.#appManager.getProject(locationId);
+        this.#appManager.removeTask(task, location);
+    }
+
     getProjects () {
         return this.#appManager.projects.map(project => ({
             title: project.title || DEFAULT_PROJECT_TITLE,
@@ -103,6 +109,7 @@ class Controller {
             () => this.getTasks(),
             this.getProjects(),
             (taskId, locationToId) => this.moveTask(taskId, locationToId),
+            (taskId, locationId) => this.deleteTask(taskId, locationId),
         );
     }
 }

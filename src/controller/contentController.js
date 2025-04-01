@@ -21,10 +21,19 @@ class ContentController {
     #updateTitle = () => {};
     #getTasks = () => {};
     #moveTask = () => {};
+    #deleteTask = () => {};
 
     #projects;
 
-    constructor (project, addTask = () => {}, updateTitle = () => {}, getTasks = () => {}, projects, moveTask = () => {}) {
+    constructor (
+        project, 
+        addTask = () => {}, 
+        updateTitle = () => {}, 
+        getTasks = () => {}, 
+        projects, 
+        moveTask = () => {},
+        deleteTask = () => {}
+    ) {
         this.#project = project;
 
         this.#addTask = addTask;
@@ -32,6 +41,7 @@ class ContentController {
         this.#getTasks = getTasks;
         this.#projects = projects;
         this.#moveTask = moveTask;
+        this.#deleteTask = deleteTask;
 
         this.render();
         this.addEventListeners();
@@ -60,6 +70,7 @@ class ContentController {
         this.#content.addEventListener('dblclick', () => this.handleDoubleClick());
         this.#newTaskButton.addEventListener('click', () => this.handleTaskCreation());
         this.#moveTaskButton.addEventListener('click', () => this.#moveDropdown.toggleDropdown());
+        this.#deleteTaskButton.addEventListener('click', () => this.handleTaskDeletion());
         this.#title = this.#content.querySelector('.title')
         this.#title.addEventListener('input', (event) => this.#project.title = event.target.value);
         this.#title.addEventListener('blur', () => this.#updateTitle());
@@ -120,6 +131,14 @@ class ContentController {
     loadTask (task) {
         new TaskController(task);
         this.tasks = document.querySelectorAll('.task');
+    }
+
+    handleTaskDeletion () {
+        const task = this.#content.querySelector('.selected');
+        this.#deleteTask(task.getAttribute('data-id'), this.#project.id);
+
+        task.remove();
+        this.tasks = this.#content.querySelectorAll('.task');
     }
 
  }
