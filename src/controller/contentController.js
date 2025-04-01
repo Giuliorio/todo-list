@@ -19,16 +19,18 @@ class ContentController {
     #addTask = () => {};
     #updateTitle = () => {};
     #getTasks = () => {};
+    #moveTask = () => {};
 
     #projects;
 
-    constructor (project, addTask = () => {}, updateTitle = () => {}, getTasks = () => {}, projects) {
+    constructor (project, addTask = () => {}, updateTitle = () => {}, getTasks = () => {}, projects, moveTask = () => {}) {
         this.#project = project;
 
         this.#addTask = addTask;
         this.#updateTitle = updateTitle;
         this.#getTasks = getTasks;
         this.#projects = projects;
+        this.#moveTask = moveTask;
 
         this.render();
         this.addEventListeners();
@@ -45,7 +47,10 @@ class ContentController {
         this.#newTaskButton = this.#content.querySelector('.new-task');  
         this.#moveTaskButton = this.#content.querySelector('.move');
 
-        this.#moveDropdown = new DropdownController(this.#projects, this.#moveTaskButton);
+        this.#moveDropdown = new DropdownController(
+            this.#projects,
+            this.#moveTaskButton, 
+            (taskId, locationToId) => this.#moveTask(taskId, locationToId));
     }
 
     addEventListeners () {

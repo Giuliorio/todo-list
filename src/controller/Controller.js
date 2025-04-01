@@ -82,6 +82,12 @@ class Controller {
         return this.#appManager.getTasks(this.selectedProject);
     }
 
+    moveTask (taskId, locationToId) {
+        const task = this.#appManager.getTask(taskId);
+        const locationTo = this.#appManager.getProject(locationToId);
+        this.#appManager.moveTask(task, this.selectedProject, locationTo);
+    }
+
     getProjects () {
         return this.#appManager.projects.map(project => ({
             title: project.title || DEFAULT_PROJECT_TITLE,
@@ -95,7 +101,8 @@ class Controller {
             () => this.addTask(), 
             () => this.updateTitle(), 
             () => this.getTasks(),
-            this.getProjects()
+            this.getProjects(),
+            (taskId, locationToId) => this.moveTask(taskId, locationToId),
         );
     }
 }
