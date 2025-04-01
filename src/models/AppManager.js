@@ -20,6 +20,13 @@ class AppManager {
         return projects;
     }
 
+    getProject (id) {
+        console.log(id)
+        const project = this.#projectManager.getProject(id);
+
+        return project;
+    }
+
     addProject (project = new Project()) {
         this.#projectManager.add(project);
 

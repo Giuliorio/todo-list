@@ -9,6 +9,11 @@ class ProjectManager {
         return [...this.#projects]
     }
 
+    getProject (id) {
+        const index = this.#projects.findIndex(project => project.id === id);
+        return this.#projects[index];
+    }
+
     add (projectToAdd) {
         this.#projects.push(projectToAdd);
         return projectToAdd;
