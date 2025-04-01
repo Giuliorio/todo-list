@@ -17,7 +17,12 @@ class TaskController {
     }
 
     #render () {
-        this.#task = createTask(this.#taskData.title, this.#taskData.description, this.#taskData.completion);
+        this.#task = createTask(
+            this.#taskData.title,
+            this.#taskData.description, 
+            this.#taskData.completion, 
+            this.#taskData.id
+        );
         this.#parentElement.appendChild(this.#task);
 
         this.#title = this.#task.querySelector('.title');

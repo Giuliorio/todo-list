@@ -1,7 +1,12 @@
 import { createElement } from "../helpers/createElement";
 
-function createTask (title, description, completion) {
-    const task = createElement('li', {classNames: ['task']});
+function createTask (title, description, completion, id) {
+    const task = createElement('li', {
+        classNames: ['task'],
+        attributes: {
+            'data-id': id,
+        },
+    });
     task.appendChild(createHeader(title, completion));
     task.appendChild(createBody(description))
     
