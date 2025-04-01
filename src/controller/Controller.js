@@ -24,7 +24,7 @@ class Controller {
 
     render () {
         new SidebarController(
-            this.#appManager.projects, 
+            () => this.getProjects(),
             DEFAULT_PROJECT_TITLE,
             (id) => this.isSelected(id),
             (event) => this.handleMenuItemSelect(event),

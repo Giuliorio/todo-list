@@ -27,6 +27,9 @@ function createFooter () {
     footer.appendChild(createElement('button', {
         classNames: ['delete'],
         textContent: '-',
+        attributes: {
+            disabled: true,
+        },
     }));
 
     return footer;

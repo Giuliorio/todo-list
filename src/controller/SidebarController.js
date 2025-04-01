@@ -4,20 +4,20 @@ import createSidebar from "../components/Sidebar";
 class SidebarController {
     #body = document.querySelector('body');
     #sidebar;
-    #projects;
     #DEFAULT_PROJECT_TITLE;
-
+    
     #sidebarList;
     #addProjectBtn;
     #deleteProjectBtn;
-
+    
+    #getProjects = () => {};
     #isSelected = () => {};
     #handleMenuItemSelect = () => {};
     #handleProjectCreation = () => {};
     #deleteProject = () => {};
 
-    constructor (projects, DEFAULT_PROJECT_TITLE, isSelected, handleMenuItemSelect, handleProjectCreation, deleteProject) {
-        this.#projects = projects;
+    constructor (getProjects, DEFAULT_PROJECT_TITLE, isSelected, handleMenuItemSelect, handleProjectCreation, deleteProject) {
+        this.#getProjects = getProjects;
         this.#DEFAULT_PROJECT_TITLE = DEFAULT_PROJECT_TITLE;
         this.#isSelected = isSelected;
         this.#handleProjectCreation = handleProjectCreation;
@@ -36,11 +36,13 @@ class SidebarController {
         this.#addProjectBtn = this.#sidebar.querySelector('.new-project');
         this.#deleteProjectBtn = this.#sidebar.querySelector('.delete');
 
-        this.#projects.forEach(project => {
+        this.#getProjects().forEach(project => {
             const menuItem = createMenuItem(project.title, project.id, this.#isSelected(project.id) ? 'selected' : '', this.#DEFAULT_PROJECT_TITLE);
             menuItem.addEventListener('click',  (event) => this.#handleMenuItemSelect(event));
             this.#sidebarList.appendChild(menuItem);
         });
+
+        this.#updateDeleteButtonState();
     }
 
     addEventListeners () {
@@ -48,15 +50,21 @@ class SidebarController {
             const newMenuItem = this.#handleProjectCreation((...args) => createMenuItem(...args))
             this.#sidebarList.appendChild(newMenuItem);
             newMenuItem.addEventListener('click',  (event) => this.#handleMenuItemSelect(event));
+            this.#updateDeleteButtonState();
         });
 
-        this.#deleteProjectBtn.addEventListener('click', () => this.handleProjectDeletion())
+        this.#deleteProjectBtn.addEventListener('click', () => this.#handleProjectDeletion())
     }
 
-    handleProjectDeletion () {
+    #handleProjectDeletion () {
         this.#sidebar.querySelector('.selected').remove();
 
         this.#deleteProject(this.#sidebarList);
+        this.#updateDeleteButtonState();
+    }
+
+    #updateDeleteButtonState () {
+        this.#deleteProjectBtn.disabled = this.#getProjects().length <= 1;
     }
 
 }
