@@ -9,26 +9,19 @@ class DropdownController {
 
     #moveTask = () => {};
 
-    constructor (projects, button, moveTask = () => {}) {
+    constructor (projects, button, moveTaskWrapper = () => {}) {
         this.#projects = projects;
         this.#dropdown = createDropdown(this.#projects);
         this.#button = button;
 
-        this.#moveTask = moveTask;
+        this.#moveTask = moveTaskWrapper;
 
         this.addEventListeners();
     }
 
     addEventListeners () {
         this.#content.addEventListener('click', (event) => this.#closeDropdown(event));
-        this.#content.addEventListener('click', (event) => {
-                if (event.target.classList.contains('option')) {
-                    this.#moveTask(
-                        this.#content.querySelector('.selected').getAttribute('data-id'),
-                        event.target.closest('.option').getAttribute('data-id')
-                    );
-                }
-            });
+        this.#content.addEventListener('click', (event) => this.#handleOptionClick(event));
     }
 
     toggleDropdown () {
@@ -43,6 +36,15 @@ class DropdownController {
     #closeDropdown (event) {
         if (!this.#dropdown.contains(event.target) && event.target !== this.#button) {
             this.#dropdown.classList.remove("show");
+        }
+    }
+
+    #handleOptionClick (event) {
+        if (event.target.classList.contains('option')) {
+            this.#moveTask(
+                this.#content.querySelector('.selected'),
+                event.target.closest('.option').getAttribute('data-id')
+            );
         }
     }
 

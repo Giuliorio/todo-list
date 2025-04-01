@@ -62,7 +62,7 @@ class ContentController {
         this.#moveDropdown = new DropdownController(
             this.#projects,
             this.#moveTaskButton, 
-            (taskId, locationToId) => this.#moveTask(taskId, locationToId));
+            (taskId, locationToId) => this.moveTaskWrapper(taskId, locationToId));
     }
 
     addEventListeners () {
@@ -139,6 +139,13 @@ class ContentController {
 
         task.remove();
         this.tasks = this.#content.querySelectorAll('.task');
+    }
+
+    moveTaskWrapper (task, locationToId) {
+        this.#moveTask(task.getAttribute('data-id'), locationToId);
+
+        task.remove();
+        this.tasks = this.#content.querySelectorAll('.task'); 
     }
 
  }
