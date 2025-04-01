@@ -12,13 +12,12 @@ class Controller {
     body = document.querySelector('body');
     
     addProject;
-    sidebarList;
 
     lastClickTarget = null;
     timer = null;   
 
     constructor () {
-        this.selectedProject = this.#appManager.projects[0];
+        this.selectInitialProject()
         this.render();
         this.addEventListeners();
     }
@@ -30,6 +29,7 @@ class Controller {
             (id) => this.isSelected(id),
             (event) => this.handleMenuItemSelect(event),
             (func) => this.handleProjectCreation(func),
+            (projectList) => this.deleteProject(projectList),
         );
         this.createProject();
     }
@@ -60,9 +60,15 @@ class Controller {
         if (menuItem.classList.contains('selected')) return;
         this.updateTitle()
 
+        this.selectedProject = this.#appManager.projects.find(project => project.id === id);
+
+        this.#switchProject(menuItem)      
+    }
+
+    #switchProject (menuItem) {
         document.querySelectorAll('.sidebar li').forEach(item => item.classList.remove('selected'));
         menuItem.classList.add('selected');
-        this.selectedProject = this.#appManager.projects.find(project => project.id === id);
+        
         this.createProject();
     }
 
@@ -111,6 +117,19 @@ class Controller {
             (taskId, locationToId) => this.moveTask(taskId, locationToId),
             (taskId, locationId) => this.deleteTask(taskId, locationId),
         );
+    }
+
+    deleteProject (projectList) {
+        this.#appManager.removeProject(this.selectedProject);
+        this.selectInitialProject();
+
+        const menuItem = projectList.querySelector(`li[data-id='${this.selectedProject.id}']`);
+
+        this.#switchProject(menuItem)
+    }
+
+    selectInitialProject () {
+        this.selectedProject = this.#appManager.projects[0];
     }
 }
 
