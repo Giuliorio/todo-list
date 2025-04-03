@@ -10,8 +10,6 @@ class AppManager {
     constructor () {
         const index = this.addProject();
         index.title = 'Index';
-        this.addTask(index, new Task('First Task'));
-        this.addTask(index, new Task('Second Task', 'I have a description!'));
     }
 
     get projects () {
