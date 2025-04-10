@@ -1,69 +1,74 @@
 class Project {
-    #id;
-    #completion = false;
-    #title;
-    #description;
-    #taskIds = [];
-    #dueDate;
+  #id;
+  #completion = false;
+  #title;
+  #description;
+  #taskIds = [];
+  #dueDate;
 
-    constructor(title = '', description = '', dueDate = null, tasks = [], id = crypto.randomUUID()) {
-        this.#id = id;
-        this.#title = title;
-        this.#description = description;
-        this.#taskIds.push(...tasks);
-        this.#dueDate = dueDate;
-    }
+  constructor(
+    title = '',
+    description = '',
+    dueDate = null,
+    tasks = [],
+    id = crypto.randomUUID()
+  ) {
+    this.#id = id;
+    this.#title = title;
+    this.#description = description;
+    this.#taskIds.push(...tasks);
+    this.#dueDate = dueDate;
+  }
 
-    get id () {
-        return this.#id;
-    }
+  get id() {
+    return this.#id;
+  }
 
-    get completion () {
-        return this.#completion;
-    }
+  get completion() {
+    return this.#completion;
+  }
 
-    toggleCompletion () {
-        this.#completion = !this.#completion;
-    }
+  toggleCompletion() {
+    this.#completion = !this.#completion;
+  }
 
-    get title () {
-        return this.#title;
-    }
+  get title() {
+    return this.#title;
+  }
 
-    set title (value) {
-        this.#title = value;
-    }
+  set title(value) {
+    this.#title = value;
+  }
 
-    get description () {
-        return this.#description;
-    }
+  get description() {
+    return this.#description;
+  }
 
-    set description (value) {
-        this.#description = value;
-    }
+  set description(value) {
+    this.#description = value;
+  }
 
-    get dueDate () {
-        return this.#dueDate;
-    }
+  get dueDate() {
+    return this.#dueDate;
+  }
 
-    set dueDate (value) {
-        this.#dueDate = value;
-    }
+  set dueDate(value) {
+    this.#dueDate = value;
+  }
 
-    get taskIds () {
-        return [...this.#taskIds]
-    }
+  get taskIds() {
+    return [...this.#taskIds];
+  }
 
-    add (taskToAdd) {
-        this.#taskIds.push(taskToAdd.id);
-        return taskToAdd;
-    }
+  add(taskToAdd) {
+    this.#taskIds.push(taskToAdd.id);
+    return taskToAdd;
+  }
 
-    remove (taskToRemove) {
-        const index = this.#taskIds.findIndex(task => task.id === taskToRemove.id);
-        return index === -1 ? this.#taskIds.splice(index, 1)[0] : null;
-    }
-
+  remove(taskToRemove) {
+    const index = this.#taskIds.findIndex((id) => id === taskToRemove.id);
+    return index !== -1 ? this.#taskIds.splice(index, 1)[0] : null;
+  }
 }
 
-export default Project
+export default Project;
